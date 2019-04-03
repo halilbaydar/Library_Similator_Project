@@ -14,23 +14,23 @@ import librarysimulator.Action;
  */
 
 public class LibrarySimulator {
-	
+
 	// The variable that represents the unit time
 	private int tick = 0;
-	
-	public Library library;
+
+	Library library;
 	Action action;
-	
+
 	public LibrarySimulator(Scanner scanner) throws InputMismatchException, FileNotFoundException {
 		library = new Library(scanner);
 	}
-	
+
 	public void timerTick(Action action) {
-		
+
 		tick++;
-		
+
 		this.action = action;
-		
+
 		if(action.getType()==Action.Type.addBook) {
 			library.addBook();
 		}
@@ -49,11 +49,11 @@ public class LibrarySimulator {
 		else if(action.getType()==Action.Type.readInLibrary) {
 			library.readInLibrary();
 		}
-		
+
 	}
 
 	public int getTick() {
 		return tick;
 	}
-	
+
 }

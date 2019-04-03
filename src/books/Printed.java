@@ -8,6 +8,7 @@ import librarymembers.LibraryMember;
  * @param limitbook is used to exchange with the MaxNumberofBooks of member
  */
 public class Printed extends Book implements ReadInLibrary, Borrow{
+	private int deadLine;
 	/**
 	 * 
 	 * @param bookID
@@ -21,6 +22,7 @@ public class Printed extends Book implements ReadInLibrary, Borrow{
 		this.setDeadLine(0); 
 		this.setIsExtended(false); 
 		this.setWhoHas(null); 
+		this.setIsTaken(false);
 	}
 	/**
 	 * 
@@ -35,7 +37,8 @@ public class Printed extends Book implements ReadInLibrary, Borrow{
 		super(bookID, bookType); 
 		this.setDeadLine(0);  
 		this.setIsExtended(false);  
-		this.setWhoHas(null);  
+		this.setWhoHas(null); 
+		this.setIsTaken(false);
 	}
 	/**
 	 * (non-Javadoc)
@@ -48,6 +51,7 @@ public class Printed extends Book implements ReadInLibrary, Borrow{
 	public void readBook(LibraryMember member) {
 		this.setIsTaken(true); 
 		this.setWhoHas(member);  
+		this.setIsTaken(true);
 	}
 	/**
 	 * @param member gets member object as a parameter
@@ -56,10 +60,11 @@ public class Printed extends Book implements ReadInLibrary, Borrow{
 	 */
 	@Override
 	public void borrowBook(LibraryMember member, int tick) {
-		this.setDeadLine(tick+ member.getTimeLimit()); // sets 
+		this.setDeadLine(tick+ member.getTimeLimit());
 		this.setWhoHas(member);
 		this.setIsExtended(false);
 		this.limitbook++;
+		this.setIsTaken(true);
 	}
 	/**
 	 * @param member gets member object as a parameter
@@ -85,9 +90,13 @@ public class Printed extends Book implements ReadInLibrary, Borrow{
 	public void returnBook(LibraryMember member) {
 		this.setIsTaken(false); 
 		this.setWhoHas(null);
-		if(this.getDeadLine()==0) {
-			return;
-		}else
-		this.limitbook--;   
+		this.limitbook--;
+		this.setIsTaken(false);
+	}
+	public int getDeadLine() {
+		return deadLine;
+	}
+	public void setDeadLine(int deadLine) {
+		this.deadLine = deadLine;
 	}
 }

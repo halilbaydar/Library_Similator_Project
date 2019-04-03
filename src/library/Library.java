@@ -37,33 +37,26 @@ public class Library{
 		this.scanner=scanner;
 	}
 	/**
-	 *@param isavailable is used to figure out whether book wanted to borrow is available in library 
 	 * if this variable false, 85.line examines type of book
 	 *@param returnbook method is called through printed object in Printed.java according to the type of book 
 	 *compares tick with deadline
-	 * 53.line calls totalFee method to calculate the penalty of member
-	 * 54. line controls the owner of book
+	 * 55.line calls totalFee method to calculate the penalty of member
+	 * 52. line controls the owner of book
 	 * 56. line calls returnBook to return book to library
 	 */
 	public void returnBook(int tick) {
-		this.bookid=scanner.nextInt(); //keeps next integer the line
-		this.memberid=scanner.nextInt(); //keeps next integer the line
-		if(books[bookid].getWhoHas().equals(null)) { 
-			if(tick > books[bookid].getDeadLine()) { 
-				totalFee(members[memberid], tick, this.bookid);//calls totalFee method to calculate the penalty of member
-				if(books[bookid].getWhoHas().equals(members[memberid])) {
-					books[bookid].returnBook(members[memberid]); //calls returnBook to return book to library
-				}else return;
-				System.out.println("return yapildi");
-			}else {
-				if(books[bookid] instanceof Printed) { 
-					if(books[bookid].getWhoHas().equals(members[memberid]))
-						books[bookid].returnBook(members[memberid]); 
-					System.out.println("return yapildi");
-				}else if(books[bookid] instanceof Handwritten) {
-					if(books[bookid].getWhoHas().equals(members[memberid]))
-						books[bookid].returnBook(members[memberid]);
-					System.out.println("return yapildi");
+		this.bookid=scanner.nextInt(); 
+		this.memberid=scanner.nextInt();
+		if(books[bookid]!=null && members[memberid]!=null && books[bookid].getIsTaken()==true) {
+			if(books[bookid].getWhoHas().equals(members[memberid]) ) { 
+				if(books[bookid] instanceof Printed) {
+					if(tick>((Printed) books[bookid]).getDeadLine()){ 
+						totalFee(members[memberid], tick, this.bookid);//calls totalFee method to calculate the penalty of member
+						books[bookid].returnBook(members[memberid]); //calls returnBook to return book to library
+						System.out.println("return yapildi");
+					}
+				}else if(books[bookid] instanceof Handwritten){
+					books[bookid].returnBook(members[memberid]);
 				}
 			}
 		}
@@ -89,7 +82,7 @@ public class Library{
 	/**
 	 * examines the type of member to correlate class it belongs to
 	 * enter index of member and type via parameter
-	 *  rise up index of member to make space for next book
+	 * rise up index of member to make space for next book
 	 */
 	public void addMember() {
 		this.typeof=scanner.next();		
@@ -109,25 +102,27 @@ public class Library{
 	 *@param isisavailable is called to check whether book is in library or not
 	 *@param checkmax controls time of and book limit of member 
 	 *after necessary checks validity of books, calls responsible methods in printed.java 
-	 *line 127 controls whether theHistory array is null or not
-	 *line 128 scans theHistory array 
-	 *line 131 adds book to this array
-	 *line 135 controls member is student or not
-	 *line 140 scans theHistory array
-	 *line 144 if this book was added before, adds book to this array
+	 *line 123 controls whether theHistory array is null or not
+	 *line 124 scans theHistory array 
+	 *line 127 adds book to this array
+	 *line 124 if this book was not added before, adds book to this array
+	 *line 129 controls member is student or not
+	 *line 133 controls array to get it is null or not
+	 *next lines again have same processes
 	 */
 	public void borrowBook(int tick) {
 		this.bookid=scanner.nextInt();
 		this.memberid=scanner.nextInt();
-		if(books[bookid].getWhoHas().equals(null)) {
-			checkmax(bookid, memberid, tick);
-			if(checkmax==false) {
-				if(books[bookid] instanceof Printed ) {
+		if(members[memberid]!=null && books[bookid] instanceof Printed && books[bookid]!=null) {
+			if(books[bookid].getWhoHas()==null) {
+				checkmax(bookid, memberid, tick);
+				if(checkmax==false) {
 					if(members[memberid] instanceof Academic) { 
 						((Printed) books[bookid]).borrowBook(members[memberid], tick);
 						System.out.println("borrow edildi");
 						if(members[memberid].theHistory!=null) {
-							if( members[memberid].theHistory.contains((Book)books[bookid])){ 
+							if( members[memberid].theHistory.contains((Book)books[bookid])){
+								return;
 							}else {
 								members[memberid].theHistory.add(books[bookid]); 
 							}
@@ -144,12 +139,11 @@ public class Library{
 						}
 					}else
 						return;
-				}else if(books[bookid] instanceof Handwritten) {
-					return;
-				}else
-					return;
+				}
 			}
-		}
+		}else if(books[bookid] instanceof Handwritten) {
+			return;
+		} 
 	}
 	/**
 	 * @param isextendible sends boolean value according to validity of extendible limit
@@ -157,45 +151,42 @@ public class Library{
 	 * checks the deadline of book
 	 * according to case, totalFee method works
 	 * @param checkmax returns value true or false according to case
-	 * line 189 controls the info books to understand it is extended before or not
-	 * line 193 calls responsible method to extend the deadline of book
+	 * line 165 controls the info books to understand it is extended before or not
+	 * line 166 calls responsible method to extend the deadline of book
 	 */
 	public void extendBook(int tick) {
 		this.bookid=scanner.nextInt();
 		this.memberid=scanner.nextInt();
-			if(!books[bookid].equals(null )) {
-				if(books[bookid].isTaken()==true && !members[memberid].equals(null)) {
-					if(books[bookid].getWhoHas().equals(members[memberid]) ) {
-						if(tick>books[bookid].getDeadLine()){
-							return;
-						}if(books[bookid].getIsExtended()==false && tick<books[bookid].getDeadLine())
-							((Printed) books[bookid]).extend(members[memberid], tick);
-						System.out.println("extend edildi");
-					}else
-						return;
+		if(books[bookid]!=null) {
+			if( members[memberid]!=null && books[bookid].getWhoHas()==members[memberid] && books[bookid]!=null) {
+				if(tick>((Printed) books[bookid]).getDeadLine()){
+					return;
+				}else if(books[bookid].getIsExtended()==false && tick<=((Printed) books[bookid]).getDeadLine()) {
+					((Printed) books[bookid]).extend(members[memberid], tick);
+				System.out.println("extend edildi");
 				}
-			}
+			}else
+				return;
+		}
 	}
 	/**if the type of book is Handwritten, this method is called
 	 *@param isisavailable is called to check whether book is in library or not
-	 *202 and 203. line checks type of books and type of members
-	 *@param readBook method is called through printed object in Handwritten.java according to the type of book 
-	 *line 214 check which type books
-	 *line 216 checks which type member
-	 *line 218 calls read book to implements book features 
-	 *221.line controls whether this array null or not
-	 *223.line scans theHistory array 
-	 *27. line adds book to this array
+	 *186 and 187. line checks type of books and type of members
+	 *@param readBook method is called through printed object in Handwritten.java according to the type of book
+	 *line 1888 calls read book to implements book features 
+	 *190.line controls whether this array null or not
+	 *191.line scans theHistory array 
+	 *194. line adds book to this array
 	 */
 	public void readInLibrary() {
 		this.bookid=scanner.nextInt();
 		this.memberid=scanner.nextInt();
-		if(books[bookid].getWhoHas().equals(null)) {
-			if(books[bookid] instanceof Handwritten && books[bookid].getWhoHas().equals(null)) {
+		if(books[bookid].getWhoHas()==null) {
+			if(books[bookid] instanceof Handwritten) {
 				if(members[memberid] instanceof Academic) { 
 					((Handwritten) books[bookid]).readBook(members[memberid]); 
 					System.out.println("read yapildi");
-					if(members[memberid].theHistory!=null) { 
+					if(members[memberid].theHistory!=null){ 
 						if(members[memberid].theHistory.contains((Book)books[bookid])){ 
 							return;
 						}else{
@@ -214,35 +205,29 @@ public class Library{
 	 * @param memberid keeps id of member as a parameter to use in method
 	 * @param tick keeps id of member as a parameter to use in method
 	 * @param checkmax returns true or false value according to case
-	 * 231 and 232.lines scan books array to find the values of book and members
-	 * 234. line compares tick with deadline
-	 * 236.line calls totalFee method to calculate the fee
-	 * @param returnbook method is called through printed object in Printed.java according to the type of book 
+	 * lines between 217 and 220 scan books array to find the values of book and members by using for loop
+	 * 221. line compares tick with deadline
 	 */
+	boolean checkmax;
 	public void checkmax(int bookid, int memberid , int tick) {
 		this.memberid=memberid;
 		this.bookid=bookid; 
-		if(members[memberid].getMaxNumberofBooks()<books[bookid].limitbook || !members[memberid].equals(null)) {
+		if(members[memberid].getMaxNumberofBooks()-books[bookid].limitbook!=0) {
 			for(int i=1; i<bookindex; i++) {
-				if(!books[i].equals(null )){
-					if(books[i].isTaken()==true && !members[i].equals(null) ) {
+				if(!books[i].equals(null)){
+					if(books[i].getIsTaken()==true) {
 						if(books[i].getWhoHas().equals(members[memberid]) ) {
-							if(tick>books[i].getDeadLine()){
-								totalFee(members[memberid], tick, bookid);
-								System.out.println(totalFee);
-								books[bookid].returnBook(members[memberid]);
+							if(tick>((Printed) books[i]).getDeadLine()){
 								checkmax=true;
 							}else
 								checkmax=false;
 						}
 					}
 				}else
-					checkmax=true;
+					return;
 			}
-		}else
-			checkmax=false;	
+		}
 	}
-	boolean checkmax;
 	/**
 	 * if the deadline was exceeded, member has to pay fine
 	 * @param totalFee keeps the sum of fine to be paid for each member 
@@ -250,7 +235,7 @@ public class Library{
 	 */
 	public int totalFee(LibraryMember member, int tick, int bookid ) {
 		this.bookid=bookid;
-		return totalFee= tick - books[bookid].getDeadLine(); 
+		return totalFee+= tick - ((Printed) books[bookid]).getDeadLine(); 
 	}
 	/**
 	 * provides access for designer to books array

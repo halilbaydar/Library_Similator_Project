@@ -14,7 +14,6 @@ public abstract class Book {
 	private String bookType;
 	private boolean isTaken;
 	private LibraryMember whoHas;
-	private int deadLine;
 	private boolean isExtended;
 	public int limitbook=0;
 	public Book() { //the id of book object initializes at 1
@@ -43,7 +42,7 @@ public abstract class Book {
 	public String getBookType() { // provide access to type of book object
 		return bookType;
 	}
-	public boolean isTaken() { //returns isTaken variable
+	public boolean getIsTaken() { //returns isTaken variable
 		return isTaken;
 	}
 	public void setIsTaken(boolean isTaken) { //sets the value of isTaken
@@ -61,11 +60,5 @@ public abstract class Book {
 	}
 	public void setIsExtended(boolean isExtended) { // provide way to sets the value of isExtended
 		this.isExtended=isExtended;
-	}
-	public int getDeadLine() { // provide access to deadLine variable
-		return deadLine;
-	}
-	public void setDeadLine(int deadLine) { //sets the value of deadLine.
-		this.deadLine = deadLine;
 	}
 }

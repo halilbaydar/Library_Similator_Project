@@ -48,26 +48,25 @@ import librarysimulator.Action.Type;
  */
 
 public class Main {
-	
+
 	public static void main(String[] args) throws FileNotFoundException {
-		
+
 		// The name of the input file is the only argument of the program
-		//File inputFile = new File(args[0]);
-		Scanner scanner=new Scanner(new File("C:\\Users\\Halil\\Desktop\\input2.txt"));
-		//Scanner scanner = new Scanner(inputFile);
-		
+		File inputFile = new File(args[0]);
+		Scanner scanner = new Scanner(inputFile);
+
 		LibrarySimulator simulation = new LibrarySimulator(scanner);
 		int numberOfEvents = scanner.nextInt();
-		
+
 		for(int i=0;i<numberOfEvents;i++) {
-			
+
 			int type = scanner.nextInt();
-			
+
 			Action action;
-			
+
 			if(type==1) {
-				 action = new Action(Type.addBook);
-				 simulation.timerTick(action);
+				action = new Action(Type.addBook);
+				simulation.timerTick(action);
 			}
 			else if(type==2) {
 				action = new Action(Type.addMember);
@@ -89,9 +88,8 @@ public class Main {
 				action = new Action(Type.readInLibrary);
 				simulation.timerTick(action);
 			}
-			
+
 		}
 		scanner.close();
-		System.out.println(simulation.library.totalFee);
 	}
 }
