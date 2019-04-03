@@ -1,5 +1,7 @@
 package librarysimulator;
 
+import java.io.FileNotFoundException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import library.Library;
@@ -10,15 +12,16 @@ import librarysimulator.Action;
  * In each timerTick call one of the possible Actions happens.
  *
  */
+
 public class LibrarySimulator {
 	
 	// The variable that represents the unit time
 	private int tick = 0;
 	
-	Library library;
+	public Library library;
 	Action action;
 	
-	public LibrarySimulator(Scanner scanner) {
+	public LibrarySimulator(Scanner scanner) throws InputMismatchException, FileNotFoundException {
 		library = new Library(scanner);
 	}
 	

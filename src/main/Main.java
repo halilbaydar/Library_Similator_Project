@@ -1,12 +1,9 @@
 package main;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import librarysimulator.*;
 import librarysimulator.Action.Type;
-
-
 /*
  * 
  * INPUT FORMAT:
@@ -55,9 +52,9 @@ public class Main {
 	public static void main(String[] args) throws FileNotFoundException {
 		
 		// The name of the input file is the only argument of the program
-		File inputFile = new File(args[0]);
-		
-		Scanner scanner = new Scanner(inputFile);
+		//File inputFile = new File(args[0]);
+		Scanner scanner=new Scanner(new File("C:\\Users\\Halil\\Desktop\\input2.txt"));
+		//Scanner scanner = new Scanner(inputFile);
 		
 		LibrarySimulator simulation = new LibrarySimulator(scanner);
 		int numberOfEvents = scanner.nextInt();
@@ -95,5 +92,6 @@ public class Main {
 			
 		}
 		scanner.close();
+		System.out.println(simulation.library.totalFee);
 	}
 }
