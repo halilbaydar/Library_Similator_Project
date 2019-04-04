@@ -32,8 +32,11 @@ public abstract class LibraryMember {
 	public int getMaxNumberofBooks() { 
 		return maxNumberofBooks;
 	}
+	/**
+	 * @param maxNumberofBooks
+	 */
 	public void setMaxNumberofBooks(int maxNumberofBooks) {
-		if(this.maxNumberofBooks==0) {
+		if(this.maxNumberofBooks==0) { 
 			return;
 		}else if(this.maxNumberofBooks==getMaxNumberofBooks()) {
 			return;

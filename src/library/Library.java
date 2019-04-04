@@ -40,9 +40,9 @@ public class Library{
 	 * if this variable false, 85.line examines type of book
 	 *@param returnbook method is called through printed object in Printed.java according to the type of book 
 	 *compares tick with deadline
-	 * 55.line calls totalFee method to calculate the penalty of member
-	 * 52. line controls the owner of book
-	 * 56. line calls returnBook to return book to library
+	 * 54.line calls totalFee method to calculate the penalty of member
+	 * 51. line controls the owner of book
+	 * 55. line calls returnBook to return book to library
 	 */
 	public void returnBook(int tick) {
 		this.bookid=scanner.nextInt(); 
@@ -53,7 +53,6 @@ public class Library{
 					if(tick>((Printed) books[bookid]).getDeadLine()){ 
 						totalFee(members[memberid], tick, this.bookid);//calls totalFee method to calculate the penalty of member
 						books[bookid].returnBook(members[memberid]); //calls returnBook to return book to library
-						System.out.println("return yapildi");
 					}
 				}else if(books[bookid] instanceof Handwritten){
 					books[bookid].returnBook(members[memberid]);
@@ -64,18 +63,16 @@ public class Library{
 	/**
 	 * examines the type of book to correlate class it belongs to
 	 * enter index of book and type via parameter
-	 *  rise up index of book to make space for next book
+	 * rise up index of book to make space for next book
 	 */
 	public void addBook() {
 		this.typeof=scanner.next();		
 		if(typeof.equals("H")) {
 			books[bookindex]=new Handwritten(bookindex);
 			bookindex++;	
-			System.out.println("kitap eklendi");
 		}else if(typeof.equals("P")) {
 			books[bookindex]= new Printed(bookindex);
 			bookindex++;
-			System.out.println("kitap eklendi");
 		}else
 			return;
 	}
@@ -89,12 +86,10 @@ public class Library{
 		if(typeof.equals("A")) {
 			members[memberindex]=new Academic(memberindex);
 			memberindex++;
-			System.out.println("member eklendi");
 		}
 		else if(typeof.equals("S")) {
 			members[memberindex]=new Student(memberindex);
 			memberindex++;
-			System.out.println("member eklendi");
 		}
 	}
 	/**
@@ -102,12 +97,11 @@ public class Library{
 	 *@param isisavailable is called to check whether book is in library or not
 	 *@param checkmax controls time of and book limit of member 
 	 *after necessary checks validity of books, calls responsible methods in printed.java 
-	 *line 123 controls whether theHistory array is null or not
-	 *line 124 scans theHistory array 
-	 *line 127 adds book to this array
-	 *line 124 if this book was not added before, adds book to this array
-	 *line 129 controls member is student or not
-	 *line 133 controls array to get it is null or not
+	 *line 123 controls whether theHistory array is null or not 
+	 *line 126 adds book to this array
+	 *line 114 controls member is student or not
+	 *line 116 controls array to get it is null or not
+	 *line 117 if this book was not added before, adds book to this array
 	 *next lines again have same processes
 	 */
 	public void borrowBook(int tick) {
@@ -119,7 +113,6 @@ public class Library{
 				if(checkmax==false) {
 					if(members[memberid] instanceof Academic) { 
 						((Printed) books[bookid]).borrowBook(members[memberid], tick);
-						System.out.println("borrow edildi");
 						if(members[memberid].theHistory!=null) {
 							if( members[memberid].theHistory.contains((Book)books[bookid])){
 								return;
@@ -129,7 +122,6 @@ public class Library{
 						}
 					}else if(members[memberid] instanceof Student) {
 						((Printed) books[bookid]).borrowBook(members[memberid], tick);
-						System.out.println("borrow edildi");
 						if(members[memberid].theHistory!=null) {
 							if( members[memberid].theHistory.contains((Book)books[bookid])){ 
 								return;
@@ -151,8 +143,8 @@ public class Library{
 	 * checks the deadline of book
 	 * according to case, totalFee method works
 	 * @param checkmax returns value true or false according to case
-	 * line 165 controls the info books to understand it is extended before or not
-	 * line 166 calls responsible method to extend the deadline of book
+	 * line 156 controls the info books to understand it is extended before or not
+	 * line 157 calls responsible method to extend the deadline of book
 	 */
 	public void extendBook(int tick) {
 		this.bookid=scanner.nextInt();
@@ -163,7 +155,6 @@ public class Library{
 					return;
 				}else if(books[bookid].getIsExtended()==false && tick<=((Printed) books[bookid]).getDeadLine()) {
 					((Printed) books[bookid]).extend(members[memberid], tick);
-				System.out.println("extend edildi");
 				}
 			}else
 				return;
@@ -171,12 +162,12 @@ public class Library{
 	}
 	/**if the type of book is Handwritten, this method is called
 	 *@param isisavailable is called to check whether book is in library or not
-	 *186 and 187. line checks type of books and type of members
+	 *176 and 177. line checks type of books and type of members
 	 *@param readBook method is called through printed object in Handwritten.java according to the type of book
-	 *line 1888 calls read book to implements book features 
-	 *190.line controls whether this array null or not
-	 *191.line scans theHistory array 
-	 *194. line adds book to this array
+	 *line 178 calls read book to implements book features 
+	 *179.line controls whether this array null or not
+	 *180.line scans theHistory array 
+	 *183.line adds book to this array
 	 */
 	public void readInLibrary() {
 		this.bookid=scanner.nextInt();
@@ -185,7 +176,6 @@ public class Library{
 			if(books[bookid] instanceof Handwritten) {
 				if(members[memberid] instanceof Academic) { 
 					((Handwritten) books[bookid]).readBook(members[memberid]); 
-					System.out.println("read yapildi");
 					if(members[memberid].theHistory!=null){ 
 						if(members[memberid].theHistory.contains((Book)books[bookid])){ 
 							return;
@@ -206,7 +196,7 @@ public class Library{
 	 * @param tick keeps id of member as a parameter to use in method
 	 * @param checkmax returns true or false value according to case
 	 * lines between 217 and 220 scan books array to find the values of book and members by using for loop
-	 * 221. line compares tick with deadline
+	 * 220. line compares tick with deadline
 	 */
 	boolean checkmax;
 	public void checkmax(int bookid, int memberid , int tick) {

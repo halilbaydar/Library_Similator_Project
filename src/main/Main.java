@@ -54,6 +54,7 @@ public class Main {
 		// The name of the input file is the only argument of the program
 		File inputFile = new File(args[0]);
 		Scanner scanner = new Scanner(inputFile);
+		
 
 		LibrarySimulator simulation = new LibrarySimulator(scanner);
 		int numberOfEvents = scanner.nextInt();
