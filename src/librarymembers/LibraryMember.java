@@ -3,11 +3,11 @@ import java.util.ArrayList;
 import books.Book;
 public abstract class LibraryMember {
 	/**
-	 * @param id keeps the id of member
-	 * @param maxNumberofBooks keeps the max book number member can take
-	 * @param timeLimit keeps the time limit of book being have to returned
-	 * @param theHistory keeps the state of all books that have been borrowed ever
-	 * @param getTheHistory returns instance of theHistory array 
+	 * id id  keeps the id of member
+	 * maxNumberofBooks maxNumberofBooks keeps the max book number member can take
+	 * timeLimit timeLimit keeps the time limit of book being have to returned
+	 * theHistory keeps the state of all books that have been borrowed ever
+	 * getTheHistory returns instance of theHistory array 
 	 */
 	public  int id;
 	private int maxNumberofBooks;
@@ -23,9 +23,9 @@ public abstract class LibraryMember {
 	public void setId(int id) {
 		if(this.id>999999 || this.id<=0) { //controls the id of books
 			System.out.println("Wrong id!, please enter less than 6 digit numbers");
-		return;}
+			return;}
 		else {
-			
+
 		}
 		this.id = id;
 	}
@@ -38,7 +38,7 @@ public abstract class LibraryMember {
 		}else if(this.maxNumberofBooks==getMaxNumberofBooks()) {
 			return;
 		}else
-		this.maxNumberofBooks = maxNumberofBooks;
+			this.maxNumberofBooks = maxNumberofBooks;
 	}
 	public int getTimeLimit(){
 		return timeLimit;
