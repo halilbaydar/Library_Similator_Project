@@ -6,16 +6,25 @@ public class Handwritten extends Book implements ReadInLibrary{
 	 *@param bookID returns the id of book object
 	 *@param bookType returns the id of book object
 	 *@param member returns the id of book object
+	 *sets istaTen as initially false
+	 *sets whoHas as initially null
 	 */
 	public Handwritten(int bookID) {
 		super(bookID);
-		this.setIsTaken(false); //sets istaTen as initially false
-		this.setWhoHas(null); //sets whoHas as initially null
+		this.setIsTaken(false); 
+		this.setWhoHas(null); 
 	} 
+	/**
+	 * 
+	 * @param bookID returns the value from super class of its
+	 * @param bookType returns the value from super class of its
+	 * sets istaTen as initially false
+	 * sets whoHas as initially null
+	 */
 	public Handwritten(int bookID, String bookType) {
 		super(bookID, bookType);
-		this.setIsTaken(false); //sets istaTen as initially false
-		this.setWhoHas(null); //sets whoHas as initially null
+		this.setIsTaken(false); 
+		this.setWhoHas(null); 
 	}
 	/**
 	 * (non-Javadoc)

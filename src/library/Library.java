@@ -8,18 +8,18 @@ import librarymembers.LibraryMember;
 import librarymembers.Student;
 /**
  *@author Halil BAYDAR 
- *@totalFee returns fine because of time-out
- *@books keeps the history of books in library
- *@members keeps the history of the member of the library
- *@tick1 is used to call unit of time in LibrarySimulator
- *@H is used to check whether book is handwritten or not
- *@P is used to check whether book is printed or not
- *@task reads which process is processed
- *@param bookid reads which book is wanted to borrow
- *@param memberid reads which member wants to borrow book
- *@param typeof reads which book or member is wanted to add to the books array or the members array
- *@param bookindex is used to determine in which index to add books to the books array
- *@param memberindex is used to determine in which index to add members to the members array
+ *totalFee returns fine because of time-out
+ *books keeps the history of books in library
+ *members keeps the history of the member of the library
+ *tick1 is used to call unit of time in LibrarySimulator
+ *H is used to check whether book is handwritten or not
+ *P is used to check whether book is printed or not
+ *task reads which process is processed
+ *bookid reads which book is wanted to borrow
+ *memberid reads which member wants to borrow book
+ *typeof reads which book or member is wanted to add to the books array or the members array
+ *bookindex is used to determine in which index to add books to the books array
+ *memberindex is used to determine in which index to add members to the members array
  */
 public class Library{
 	public int totalFee;
@@ -29,8 +29,11 @@ public class Library{
 	String typeof;
 	int bookindex, memberindex;
 	private Scanner scanner;
+	/**
+	 * @param scanner gets scanner parameter to use in the class
+	 */
 	public Library(Scanner scanner) {
-		this.bookindex=1; //it begins from index 1 due to the description
+		this.bookindex=1; //
 		this.memberindex=1; //it begins from index 1 due to the description
 		books=new Book[(int) 10e6]; //it's size composed of 10e6 due to the description
 		members=new LibraryMember[(int) 10e6]; //it's size composed of 10e6 due to the description
@@ -38,8 +41,8 @@ public class Library{
 	}
 	/**
 	 * if this variable false, 85.line examines type of book
-	 *@param returnbook method is called through printed object in Printed.java according to the type of book 
-	 *compares tick with deadline
+	 * returnBook method is called through printed object in Printed.java according to the type of book 
+	 * @param tick is compared with deadline
 	 * 54.line calls totalFee method to calculate the penalty of member
 	 * 51. line controls the owner of book
 	 * 55. line calls returnBook to return book to library
@@ -94,8 +97,8 @@ public class Library{
 	}
 	/**
 	 * creates printed object to call methods in printed.java
-	 *@param isisavailable is called to check whether book is in library or not
-	 *@param checkmax controls time of and book limit of member 
+	 *@param tick gets as parameter to use in the method
+	 *checkmax controls time of and book limit of member 
 	 *after necessary checks validity of books, calls responsible methods in printed.java 
 	 *line 123 controls whether theHistory array is null or not 
 	 *line 126 adds book to this array
@@ -138,11 +141,11 @@ public class Library{
 		} 
 	}
 	/**
-	 * @param isextendible sends boolean value according to validity of extendible limit
+	 * @param tick gets as parameter to use in the method
 	 * controls whether this book time was already extended or not 
 	 * checks the deadline of book
 	 * according to case, totalFee method works
-	 * @param checkmax returns value true or false according to case
+	 * 
 	 * line 156 controls the info books to understand it is extended before or not
 	 * line 157 calls responsible method to extend the deadline of book
 	 */
@@ -161,9 +164,9 @@ public class Library{
 		}
 	}
 	/**if the type of book is Handwritten, this method is called
-	 *@param isisavailable is called to check whether book is in library or not
+	 *
 	 *176 and 177. line checks type of books and type of members
-	 *@param readBook method is called through printed object in Handwritten.java according to the type of book
+	 *readBook method is called through printed object in Handwritten.java according to the type of book
 	 *line 178 calls read book to implements book features 
 	 *179.line controls whether this array null or not
 	 *180.line scans theHistory array 
@@ -220,8 +223,10 @@ public class Library{
 	}
 	/**
 	 * if the deadline was exceeded, member has to pay fine
-	 * @param totalFee keeps the sum of fine to be paid for each member 
+	 * @param bookid gets book id by using parameter
+	 * @param tick  gets as parameter to use in the method
 	 * @param member gets member object as a parameter
+	 * @return totalFee keeps the sum of fine to be paid for each member 
 	 */
 	public int totalFee(LibraryMember member, int tick, int bookid ) {
 		this.bookid=bookid;
@@ -229,6 +234,7 @@ public class Library{
 	}
 	/**
 	 * provides access for designer to books array
+	 * @return books array
 	 */
 	public Book[] getBooks() {
 		return books;
