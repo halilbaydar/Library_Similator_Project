@@ -62,9 +62,9 @@ public class Printed extends Book implements ReadInLibrary, Borrow{
 	public void borrowBook(LibraryMember member, int tick) {
 		this.setDeadLine(tick+ member.getTimeLimit());
 		this.setWhoHas(member);
-		this.setIsExtended(false);
 		this.limitbook++;
 		this.setIsTaken(true);
+		this.setIsExtended(false);
 	}
 	/**
 	 * @param member gets member object as a parameter
@@ -75,7 +75,7 @@ public class Printed extends Book implements ReadInLibrary, Borrow{
 	@Override
 	public void extend(LibraryMember member, int tick) {
 		this.setDeadLine(this.getDeadLine()+member.getTimeLimit()); 
-		this.setIsExtended(true);  
+		this.setIsExtended(true); 
 	}
 	/**
 	 * (non-Javadoc)
@@ -91,7 +91,7 @@ public class Printed extends Book implements ReadInLibrary, Borrow{
 		this.setIsTaken(false); 
 		this.setWhoHas(null);
 		this.limitbook--;
-		this.setIsTaken(false);
+		this.setIsExtended(false);
 	}
 	public int getDeadLine() {
 		return deadLine;

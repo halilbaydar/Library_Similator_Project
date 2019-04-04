@@ -3,6 +3,7 @@ import interfaces.ReadInLibrary;
 import librarymembers.LibraryMember;
 public class Handwritten extends Book implements ReadInLibrary{
 	/**
+	 *@author Halil
 	 *@param bookID returns the id of book object
 	 *@param bookType returns the id of book object
 	 *@param member returns the id of book object

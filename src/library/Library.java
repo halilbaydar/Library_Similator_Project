@@ -22,7 +22,7 @@ import librarymembers.Student;
  *memberindex is used to determine in which index to add members to the members array
  */
 public class Library{
-	public int totalFee;
+	public static int totalFee;
 	private Book[] books;
 	private LibraryMember[] members;
 	int task,bookid,memberid;
@@ -33,8 +33,8 @@ public class Library{
 	 * @param scanner gets scanner parameter to use in the class
 	 */
 	public Library(Scanner scanner) {
-		this.bookindex=1; //
-		this.memberindex=1; //it begins from index 1 due to the description
+		this.bookindex=0; //
+		this.memberindex=0; //it begins from index 1 due to the description
 		books=new Book[(int) 10e6]; //it's size composed of 10e6 due to the description
 		members=new LibraryMember[(int) 10e6]; //it's size composed of 10e6 due to the description
 		this.scanner=scanner;
@@ -48,8 +48,8 @@ public class Library{
 	 * 55. line calls returnBook to return book to library
 	 */
 	public void returnBook(int tick) {
-		this.bookid=scanner.nextInt(); 
-		this.memberid=scanner.nextInt();
+		this.bookid=scanner.nextInt()-1; 
+		this.memberid=scanner.nextInt()-1;
 		if(books[bookid]!=null && members[memberid]!=null && books[bookid].getIsTaken()==true) {
 			if(books[bookid].getWhoHas().equals(members[memberid]) ) { 
 				if(books[bookid] instanceof Printed) {
@@ -71,10 +71,10 @@ public class Library{
 	public void addBook() {
 		this.typeof=scanner.next();		
 		if(typeof.equals("H")) {
-			books[bookindex]=new Handwritten(bookindex);
+			books[bookindex]=new Handwritten(bookindex+1);
 			bookindex++;	
 		}else if(typeof.equals("P")) {
-			books[bookindex]= new Printed(bookindex);
+			books[bookindex]= new Printed(bookindex+1);
 			bookindex++;
 		}else
 			return;
@@ -87,11 +87,11 @@ public class Library{
 	public void addMember() {
 		this.typeof=scanner.next();		
 		if(typeof.equals("A")) {
-			members[memberindex]=new Academic(memberindex);
+			members[memberindex]=new Academic(memberindex+1);
 			memberindex++;
 		}
 		else if(typeof.equals("S")) {
-			members[memberindex]=new Student(memberindex);
+			members[memberindex]=new Student(memberindex+1);
 			memberindex++;
 		}
 	}
@@ -108,8 +108,8 @@ public class Library{
 	 *next lines again have same processes
 	 */
 	public void borrowBook(int tick) {
-		this.bookid=scanner.nextInt();
-		this.memberid=scanner.nextInt();
+		this.bookid=scanner.nextInt()-1;
+		this.memberid=scanner.nextInt()-1;
 		if(members[memberid]!=null && books[bookid] instanceof Printed && books[bookid]!=null) {
 			if(books[bookid].getWhoHas()==null) {
 				checkmax(bookid, memberid, tick);
@@ -117,7 +117,7 @@ public class Library{
 					if(members[memberid] instanceof Academic) { 
 						((Printed) books[bookid]).borrowBook(members[memberid], tick);
 						if(members[memberid].theHistory!=null) {
-							if( members[memberid].theHistory.contains((Book)books[bookid])){
+							if(members[memberid].theHistory.contains((Book)books[bookid])){
 								return;
 							}else {
 								members[memberid].theHistory.add(books[bookid]); 
@@ -150,8 +150,8 @@ public class Library{
 	 * line 157 calls responsible method to extend the deadline of book
 	 */
 	public void extendBook(int tick) {
-		this.bookid=scanner.nextInt();
-		this.memberid=scanner.nextInt();
+		this.bookid=scanner.nextInt()-1;
+		this.memberid=scanner.nextInt()-1;
 		if(books[bookid]!=null) {
 			if( members[memberid]!=null && books[bookid].getWhoHas()==members[memberid] && books[bookid]!=null) {
 				if(tick>((Printed) books[bookid]).getDeadLine()){
@@ -173,8 +173,8 @@ public class Library{
 	 *183.line adds book to this array
 	 */
 	public void readInLibrary() {
-		this.bookid=scanner.nextInt();
-		this.memberid=scanner.nextInt();
+		this.bookid=scanner.nextInt()-1;
+		this.memberid=scanner.nextInt()-1;
 		if(books[bookid].getWhoHas()==null) {
 			if(books[bookid] instanceof Handwritten) {
 				if(members[memberid] instanceof Academic) { 
@@ -183,7 +183,7 @@ public class Library{
 						if(members[memberid].theHistory.contains((Book)books[bookid])){ 
 							return;
 						}else{
-							members[memberid].theHistory.add(books[bookid]); 
+							members[memberid].theHistory.add(books[bookid]);
 						}
 					}
 				}
@@ -238,5 +238,13 @@ public class Library{
 	 */
 	public Book[] getBooks() {
 		return books;
+	}
+	/**
+	 * 
+	 * @return
+	 */
+	public LibraryMember[] getMembers() {
+		return members;
+		
 	}
 }
