@@ -90,8 +90,13 @@ public class Printed extends Book implements ReadInLibrary, Borrow{
 	public void returnBook(LibraryMember member) {
 		this.setIsTaken(false); 
 		this.setWhoHas(null);
-		this.limitbook--;
 		this.setIsExtended(false);
+		if(this.deadLine==0) {
+			return;
+		}else
+			this.limitbook--;
+			
+		
 	}
 	public int getDeadLine() {
 		return deadLine;

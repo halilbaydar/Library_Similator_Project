@@ -36,9 +36,7 @@ public abstract class LibraryMember {
 	 * @param maxNumberofBooks
 	 */
 	public void setMaxNumberofBooks(int maxNumberofBooks) {
-		if(this.maxNumberofBooks==0) { 
-			return;
-		}else if(this.maxNumberofBooks==getMaxNumberofBooks()) {
+		if(this.maxNumberofBooks==0 || this.maxNumberofBooks==getMaxNumberofBooks()) {
 			return;
 		}else
 			this.maxNumberofBooks = maxNumberofBooks;

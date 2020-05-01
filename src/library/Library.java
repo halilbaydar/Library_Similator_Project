@@ -124,7 +124,7 @@ public class Library{
 							}
 						}
 					}else if(members[memberid] instanceof Student) {
-						((Printed) books[bookid]).borrowBook(members[memberid], tick);
+							((Printed) books[bookid]).borrowBook(members[memberid], tick);
 						if(members[memberid].theHistory!=null) {
 							if( members[memberid].theHistory.contains((Book)books[bookid])){ 
 								return;
@@ -188,7 +188,16 @@ public class Library{
 					}
 				}
 				return;
-			}else
+			}else if(books[bookid] instanceof Printed){
+				((Handwritten) books[bookid]).readBook(members[memberid]);
+				if(members[memberid].theHistory!=null){ 
+					if(members[memberid].theHistory.contains((Book)books[bookid])){ 
+						return;
+					}else{
+						members[memberid].theHistory.add(books[bookid]);
+					}
+				}
+			}
 				return;
 		}
 	}
